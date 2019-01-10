@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -38,4 +39,25 @@ public class AccountService {
     		throw new MoneyTransferException(exp.getMessage());
     	}
     }
+    
+    /**
+     * 
+     * @param accountId
+     * @return
+     * @throws MoneyTransferException
+     */
+    @GET
+    @Path("/{accountId}")
+    public Account getAccount(@PathParam("accountId") long accountId) throws MoneyTransferException {
+    	try {
+        return daoFactory.getAccountDAO().getAccountById(accountId);
+    	}catch(AccountDAOException exp) {
+    		throw new MoneyTransferException(exp.getMessage());
+    	}
+    }
+    
+    
+   
+    
+    
 }
