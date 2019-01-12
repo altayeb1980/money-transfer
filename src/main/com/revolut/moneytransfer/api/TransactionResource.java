@@ -30,7 +30,7 @@ public class TransactionResource {
 	 * 
 	 * @param transaction
 	 * @return
-	 * @throws CustomException
+	 * @throws TransferFailureException
 	 */
 	@POST
 	public Response transferFund(UserTransaction transaction) throws TransferFailureException {

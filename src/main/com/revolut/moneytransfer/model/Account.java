@@ -2,11 +2,10 @@ package com.revolut.moneytransfer.model;
 
 import java.math.BigDecimal;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Account {
-	@JsonIgnore
+	@JsonProperty(required = true)
     private long accountId;
 
     @JsonProperty(required = true)
