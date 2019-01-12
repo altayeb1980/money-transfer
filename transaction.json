@@ -1,0 +1,6 @@
+{  
+   "currencyCode":"EUR",
+   "amount":100000.0000,
+   "fromAccountId":1,
+   "toAccountId":2
+}

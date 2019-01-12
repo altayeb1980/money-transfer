@@ -1,4 +1,6 @@
-package com.revolut.moneytransfer.service;
+package com.revolut.moneytransfer.api;
+
+import java.util.concurrent.ExecutionException;
 
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -7,17 +9,21 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.revolut.moneytransfer.dao.DAOFactory;
-import com.revolut.moneytransfer.exception.AccountDAOException;
-import com.revolut.moneytransfer.exception.MoneyTransferException;
+import com.revolut.moneytransfer.exception.TransferFailureException;
+import com.revolut.moneytransfer.model.Account;
 import com.revolut.moneytransfer.model.UserTransaction;
+import com.revolut.moneytransfer.service.TransferService;
 import com.revolut.moneytransfer.utils.MoneyUtil;
 
 @Path("/transaction")
 @Produces(MediaType.APPLICATION_JSON)
-public class TransactionService {
+public class TransactionResource {
 
-	private final DAOFactory daoFactory = DAOFactory.getDAOFactory(DAOFactory.H2);
+	private TransferService transferService;
+
+	public TransactionResource(TransferService transferService) {
+		this.transferService = transferService;
+	}
 
 	/**
 	 * Transfer fund between two accounts.
@@ -27,7 +33,7 @@ public class TransactionService {
 	 * @throws CustomException
 	 */
 	@POST
-	public Response transferFund(UserTransaction transaction) throws MoneyTransferException {
+	public Response transferFund(UserTransaction transaction) throws TransferFailureException {
 
 		String currency = transaction.getCurrencyCode();
 
@@ -36,16 +42,14 @@ public class TransactionService {
 		}
 
 		try {
-			int updateCount = daoFactory.getAccountDAO().transferAccountBalance(transaction);
-			if (updateCount == 2) {
+			Account account = transferService.transferFund(transaction).get();
+			if (account != null) {
 				return Response.status(Response.Status.OK).build();
-			} else {
-				// transaction failed
+			}else {
 				throw new WebApplicationException("Transaction failed", Response.Status.BAD_REQUEST);
-
 			}
-		} catch (AccountDAOException exp) {
-			throw new MoneyTransferException(exp.getMessage());
+		} catch (InterruptedException | ExecutionException e) {
+			throw new WebApplicationException("Transaction failed", Response.Status.BAD_REQUEST);
 		}
 	}
 }

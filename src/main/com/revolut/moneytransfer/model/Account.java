@@ -21,15 +21,10 @@ public class Account {
     public Account() {
     }
 
-    public Account(String userName, BigDecimal balance, String currencyCode) {
-        this.userName = userName;
-        this.balance = balance;
-        this.currencyCode = currencyCode;
-    }
 
-    public Account(long accountId, String userName, BigDecimal balance, String currencyCode) {
+    public Account(long accountId, String username, BigDecimal balance, String currencyCode) {
         this.accountId = accountId;
-        this.userName = userName;
+        this.userName = username;
         this.balance = balance;
         this.currencyCode = currencyCode;
     }
