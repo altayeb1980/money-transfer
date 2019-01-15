@@ -6,22 +6,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Account {
 	@JsonProperty(required = true)
-    private long accountId;
+    private final long accountId;
 
     @JsonProperty(required = true)
-    private String userName;
+    private final String userName;
 
     @JsonProperty(required = true)
-    private BigDecimal balance;
+    private final BigDecimal balance;
 
     @JsonProperty(required = true)
-    private String currencyCode;
-
-    public Account() {
-    }
+    private final String currencyCode;
 
 
-    public Account(long accountId, String username, BigDecimal balance, String currencyCode) {
+    public Account(final long accountId, final String username, final BigDecimal balance, final String currencyCode) {
         this.accountId = accountId;
         this.userName = username;
         this.balance = balance;

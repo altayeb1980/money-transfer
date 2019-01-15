@@ -11,6 +11,7 @@ import com.revolut.moneytransfer.dao.UserDAO;
 import com.revolut.moneytransfer.mapper.ServiceExceptionMapper;
 import com.revolut.moneytransfer.service.SimpleTransferService;
 import com.revolut.moneytransfer.service.TransferService;
+import com.revolut.moneytransfer.service.TransferServiceValidator;
 
 import io.dropwizard.Application;
 import io.dropwizard.jdbi3.JdbiFactory;
@@ -28,16 +29,8 @@ public class MainApplication extends Application<MainApplicationConfiguration> {
 		return "money-transfer";
 	}
 
-	// private final GuiceBundle<MainApplicationConfiguration> GUICE_BUNDLE =
-	// GuiceBundle
-	// .<MainApplicationConfiguration>newBuilder().addModule(new ServerModule())
-	// .enableAutoConfig(getClass().getPackage().getName()).setConfigClass(MainApplicationConfiguration.class)
-	// .build();
-	//
-
 	@Override
 	public void initialize(Bootstrap<MainApplicationConfiguration> bootstrap) {
-		// bootstrap.addBundle(GUICE_BUNDLE);
 	}
 
 	@Override
@@ -53,9 +46,8 @@ public class MainApplication extends Application<MainApplicationConfiguration> {
 
 		final UserDAO userDAO = jdbi.onDemand(UserDAO.class);
 		final AccountDAO accountDAO = jdbi.onDemand(AccountDAO.class);
-		
-		final TransferService transferService = new SimpleTransferService(accountDAO);
-		
+		final TransferServiceValidator transferServiceValidator = new TransferServiceValidator();
+		final TransferService transferService = new SimpleTransferService(accountDAO, transferServiceValidator);
 		environment.jersey().register(new ServiceExceptionMapper());
 		environment.jersey().register(new UserResource(userDAO));
 		environment.jersey().register(new AccountResource(accountDAO));
