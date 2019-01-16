@@ -42,9 +42,9 @@ to check if toAccountId credited type http://localhost:9090/account/2
 # Validations
 
 Three main validation should be proceed when the transfer for the fund take place
-    1. transaction currency should be ISO valid
-    2. transaction currency should be the same between the sender and receiver
-    3. the sender should not have Insufficient Funds
+1. Transaction currency should be ISO valid
+2. Transaction currency should be the same between the sender and receiver
+3. The sender should not have Insufficient Funds
 
 
 
