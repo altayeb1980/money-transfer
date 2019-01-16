@@ -10,7 +10,7 @@ The application use the following technology
 
 In order to run the application type the following:
 
-java -jar  money-transfer-1.0.0.jar server application.yml
+java -jar  target/money-transfer-1.0.0.jar server application.yml
 The application run on port 9090
 
 # How to use the application
