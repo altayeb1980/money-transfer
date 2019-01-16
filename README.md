@@ -39,7 +39,12 @@ curl -X POST -H "Content-Type: application/json" -d '{"currencyCode":"USD", "amo
 to check if fromAccountId debited type http://localhost:9090/account/1  
 to check if toAccountId credited type http://localhost:9090/account/2
 
-please note the transaction service only used for internal transfer which means the currency should be the same for both sender and receiver.
+# Validations
+
+Three main validation should be proceed when the transfer for the fund start
+    . transaction currency should be ISO valid
+    . transaction currency should be the same between the sender and receiver
+    . the sender should not have Insufficient Funds
 
 
 
