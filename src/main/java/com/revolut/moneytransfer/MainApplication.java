@@ -14,6 +14,7 @@ import com.revolut.moneytransfer.service.TransferService;
 import com.revolut.moneytransfer.service.TransferServiceValidator;
 
 import io.dropwizard.Application;
+import io.dropwizard.configuration.ResourceConfigurationSourceProvider;
 import io.dropwizard.jdbi3.JdbiFactory;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -31,6 +32,7 @@ public class MainApplication extends Application<MainApplicationConfiguration> {
 
 	@Override
 	public void initialize(Bootstrap<MainApplicationConfiguration> bootstrap) {
+		bootstrap.setConfigurationSourceProvider(new ResourceConfigurationSourceProvider());
 	}
 
 	@Override

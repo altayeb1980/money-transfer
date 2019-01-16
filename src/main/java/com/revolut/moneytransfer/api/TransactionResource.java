@@ -35,7 +35,8 @@ public class TransactionResource {
 			return Response.status(Response.Status.OK).build();
 		} catch (Exception e) {
 			System.err.println("error in transferFun "+e);
-			throw new WebApplicationException("Transaction failed", Response.Status.BAD_REQUEST);
+			throw e;
+			//throw new WebApplicationException("Transaction failed", Response.Status.BAD_REQUEST);
 		}
 	}
 }
