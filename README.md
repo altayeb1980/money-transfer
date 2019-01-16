@@ -38,6 +38,7 @@ curl -X POST -H "Content-Type: application/json" -d '{"currencyCode":"USD", "amo
 to check if fromAccountId debited type http://localhost:9090/account/1  
 to check if toAccountId credited type http://localhost:9090/account/2
 
+please note the transaction service only used for internal transfer which means the currency should be the same for both sender and receiver.
 
 
 
